@@ -1,12 +1,12 @@
 {
-   "server":{
-       "port":5000
-   },
-   "database": {
-       "host": "127.0.0.1",
-       "user": "root",
-       "password": "c3rr4d0",
-       "database": "integrador",
-       "port": 3306
-   }
+    "server":{
+        "port":5000
+    },
+    "database": {
+        "host": "127.0.0.1",
+        "user": "root",
+        "password": "password",
+        "database": "integrador",
+        "port": 3306
+        }
 }
