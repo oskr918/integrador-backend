@@ -17,7 +17,7 @@ const alumnoCont = require("./src/controller/alumnoController.js");
 app.use("/api/alumno", alumnoCont);
 
 const cursoCont = require("./src/controller/cursoController.js");
-app.use(cursoCont);
+app.use("/api/curso", cursoCont);
 
 app.listen(config.server.port, function (err) {
   if (err) {

@@ -8,7 +8,7 @@ app.get('/', getAll);
 
 app.get('/:idCurso', getAlumnosByIdCurso);
 
-app.post('/api/curso', createCurso);
+app.post('/', createCurso);
 
 app.put('/:idCurso', updateCurso);
 
@@ -42,7 +42,7 @@ function createCurso(req, res) {
       } else {
          res.json(result);
       }
-   })
+   });
 }
 
 function updateCurso(req, res) {
