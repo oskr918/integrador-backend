@@ -5,7 +5,7 @@
     "database": {
         "host": "127.0.0.1",
         "user": "root",
-        "password": "password",
+        "password": "aleli7",
         "database": "integrador",
         "port": 3306
         }
