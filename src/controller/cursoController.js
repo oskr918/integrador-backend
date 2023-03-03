@@ -44,7 +44,7 @@ function createCurso(req, res) {
       } else {
          res.json(result);
       }
-   })
+   });
 }
 
 function resgisAlumsCurso(req, res) {

@@ -52,7 +52,7 @@ cursoDB.getAlumnosByIdCurso = function (id, funCallBack) {
 }
 
 cursoDB.createCurso = function (curso, funCallBack) {
-   var query = "INSERT INTO curso (id, nombre, descripcion, imagen, anio, activo) VALUES (?, ?, ?, ?, ?, ?)";
+   var query = 'INSERT INTO curso (id, nombre, descripcion, imagen, anio, activo) VALUES (?, ?, ?, ?, ?, ?)';
    var dbParams = [curso.id, curso.nombre, curso.descripcion, curso.imagen, curso.anio, curso.activo];
    connection.query(query, dbParams, function (err, result, fields) {
       if (err) {
@@ -70,7 +70,7 @@ cursoDB.createCurso = function (curso, funCallBack) {
          console.error(err);
       } else {
          funCallBack({
-            message: `Se ceo el curso ${curso.nombre}`,
+            message: `Se creó el curso ${curso.nombre}`,
             detail: result
          });
       }
@@ -119,7 +119,7 @@ cursoDB.resgisAlumsCurso = function (data, funCallBack) {
 }
 
 cursoDB.updateCurso = function (id, curso, funCallBack) {
-   var query = "UPDATE curso SET id = ?, nombre = ?, descripcion = ?, imagen = ?, anio = ?, activo = ? WHERE id = ? "
+   var query = 'UPDATE curso SET id = ?, nombre = ?, descripcion = ?, imagen = ?, anio = ?, activo = ? WHERE id = ?'
    var dbParams = [curso.id, curso.nombre, curso.descripcion, curso.imagen, curso.anio, curso.activo, id];
    connection.query(query, dbParams, function (err, result, fields) {
       if (err) {
