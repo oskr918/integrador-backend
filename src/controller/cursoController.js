@@ -10,6 +10,8 @@ app.get('/:idCurso', getAlumnosByIdCurso);
 
 app.post('/', createCurso);
 
+app.post('/alumCurso/', resgisAlumsCurso);
+
 app.put('/:idCurso', updateCurso);
 
 app.delete('/:idCurso', deleteCurso);
@@ -45,6 +47,16 @@ function createCurso(req, res) {
    });
 }
 
+function resgisAlumsCurso(req, res) {
+   cursoDB.resgisAlumsCurso(req.body, function (err, result) {
+      if (err) {
+         res.status(500).send(err);
+      } else {
+         res.json(result);
+      }
+   })
+}
+
 function updateCurso(req, res) {
    cursoDB.updateCurso(req.params.idCurso, req.body, function (result) {
       if (result.code == 3) {
@@ -54,7 +66,7 @@ function updateCurso(req, res) {
       } else {
          res.json(result);
       }
-   })
+   });
 }
 
 function deleteCurso(req, res) {

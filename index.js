@@ -28,6 +28,7 @@ app.use("/api/curso", cursoCont);
 const usuarioCont = require("./src/controller/usuarioController.js");
 app.use("/api/usuario", usuarioCont);
 
+
 app.listen(config.server.port, function (err) {
   if (err) {
       console.log(err);

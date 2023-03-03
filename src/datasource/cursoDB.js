@@ -1,3 +1,4 @@
+const { query } = require('express');
 const mysql = require('mysql');
 const config = require("../config/config.json");
 
@@ -42,12 +43,12 @@ cursoDB.getAlumnosByIdCurso = function (id, funCallBack) {
             funCallBack(undefined, result);
          } else {
             funCallBack({
-               message: "No se encontro el Curso..."
+               message: "El Curso no tiene Alumnos aun..."
             })
          }
       };
    });
-   
+
 }
 
 cursoDB.createCurso = function (curso, funCallBack) {
@@ -76,13 +77,54 @@ cursoDB.createCurso = function (curso, funCallBack) {
    })
 }
 
+cursoDB.resgisAlumsCurso = function (data, funCallBack) {
+
+   const { idCurso, idAlumnos } = data;
+   var query = "SELECT * FROM alumno_curso WHERE id_curso = ? AND id_alumno IN (?)";
+   var params = [idCurso, idAlumnos];
+   connection.query(query, params, function (err, result, fields) {
+
+      if (err) {
+
+         console.error(err);
+      } else {
+
+         if (result[0] && Object.keys(result[0]).length > 0) {
+            funCallBack({
+               message: "El/Los alumnos ya estan inscripto en este curso",
+               detail: result
+            });
+
+         } else {
+
+            var query = "INSERT INTO alumno_curso (id_alumno, id_curso) VALUES ?";
+            const valores = idAlumnos.map(idAlumno => [idAlumno, idCurso]);
+            
+            connection.query(query, [valores], function (err, result, fields) {
+               if (err) {
+                  console.error(err);
+               } else {
+                  funCallBack({
+                     message: `Se inscribio a los alumnos ${idAlumnos} en el curso ${idCurso}`,
+                     detail: result
+                  });
+               }
+            });
+
+
+         }
+      }
+   });
+
+}
+
 cursoDB.updateCurso = function (id, curso, funCallBack) {
    var query = 'UPDATE curso SET id = ?, nombre = ?, descripcion = ?, imagen = ?, anio = ?, activo = ? WHERE id = ?'
    var dbParams = [curso.id, curso.nombre, curso.descripcion, curso.imagen, curso.anio, curso.activo, id];
    connection.query(query, dbParams, function (err, result, fields) {
       if (err) {
          funCallBack({
-            code : 3,
+            code: 3,
             message: 'Surgio un problema, contactese con un administradr. Gracias !!',
             detail: err
          });
@@ -106,7 +148,7 @@ cursoDB.updateCurso = function (id, curso, funCallBack) {
 }
 
 cursoDB.deleteCurso = function (id, funCallBack) {
-   var query = "DELETE FROM curso WHERE id = ?"
+   var query = "DELETE FROM alumno_curso WHERE alumno_curso.id_curso = ?"
    connection.query(query, id, function (err, result, fields) {
       if (err) {
          funCallBack({
@@ -121,11 +163,12 @@ cursoDB.deleteCurso = function (id, funCallBack) {
                detail: result
             });
          } else {
+
             funCallBack(undefined, {
                message: `Se Elimino el curso, id = ${id}. Con exito`,
                detail: result
             });
-         }         
+         }
       }
    });
 }
