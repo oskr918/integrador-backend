@@ -1,5 +1,6 @@
 const { getUser } = require('../datasource/usuarioDB');
 const jwt = require('jsonwebtoken');
+
 const SECRET_KEY = 'miClaveSecreta'; 
 
 function loginUser(req, res) {
