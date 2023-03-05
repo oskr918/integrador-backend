@@ -1,7 +1,9 @@
 const { getUser } = require('../datasource/usuarioDB');
 const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = 'miClaveSecreta'; 
+const config = require('../config/config.json');
+
+const SECRET_KEY = config.secretKey;
 
 function loginUser(req, res) {
   const { nickname, password } = req.body;
@@ -17,13 +19,13 @@ function loginUser(req, res) {
         // Generar un token JWT y enviarlo al cliente
         const token = jwt.sign(
           { 
-            userId: user.id, 
             nickname: user.nickname, 
-            role: user.role // agregar campo role al token
+            rol: user.rol // cambiar el nombre del campo
           },
           SECRET_KEY,
           { expiresIn: '1h' }
         );
+        
         res.status(200).json({ token });
       } else {
         res.status(401).json({ message: 'Contraseña incorrecta' });

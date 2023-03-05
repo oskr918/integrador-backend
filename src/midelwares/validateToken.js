@@ -1,19 +1,22 @@
 const jwt = require('jsonwebtoken');
+const config = require('../config/config.json');
 
-const SECRET_KEY = 'miClaveSecreta';
+const SECRET_KEY = config.secretKey;
 
 function validateToken(req, res, next) {
-  // Obtener el token del encabezado Authorization
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({ message: 'Token no proporcionado' });
   }
-  const token = authHeader.split(' ')[1];
 
+  const token = authHeader.split(' ')[1];
   try {
-    // Verificar el token y agregar los datos del usuario a la solicitud
     const decodedToken = jwt.verify(token, SECRET_KEY);
-    req.userData = decodedToken;
+    req.userData = {
+      nickname: decodedToken.nickname,
+      rol: decodedToken.rol, // Agregar el rol al objeto userData
+    };
+   
     next();
   } catch (error) {
     return res.status(401).json({ message: 'Token inválido' });

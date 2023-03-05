@@ -1,7 +1,6 @@
 require("rootpath")();
 const express = require('express');
 const app = express();
-
 const alumnoDB = require("../datasource/alumnoDB.js");
 
 app.get('/', getAll);
@@ -16,14 +15,19 @@ app.delete('/:idAlumno', eliminar);
 
 // Metodo para listar todas los alumnos
 function getAll(req, res) {
-    alumnoDB.getAll(function (err, result) {
+    console.log(req.userData)
+    if (req.userData.rol === 'admi') { // Verificar el rol
+      alumnoDB.getAll(function (err, result) {
         if (err) {
-            res.status(500).send(err);
+          res.status(500).send(err);
         } else {
-            res.json(result);
+          res.json(result);
         }
-    });
-}
+      });
+    } else {
+      res.status(403).json({ message: 'No tienes permiso para realizar esta acción' });
+    }
+  }
 // Metodo para buscar a los alumnos por su id
 function getByIdAlumno(req, res) {
     alumnoDB.getByIdAlumno(req.params.idAlumno,function (err, result) {

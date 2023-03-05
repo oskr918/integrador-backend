@@ -17,10 +17,10 @@ const usuarioCont = require("./src/controller/usuarioController.js");
 
 app.post('/api/login', loginUser);
 
-// Rutas protegidas con validateToken
-app.use('/api/alumno', validateToken, alumnoCont);
-app.use('/api/curso', validateToken, cursoCont);
-app.use('/api/usuario', validateToken, usuarioCont);
+// Rutas protegidas con validateToken 
+app.use('/api/alumno', alumnoCont);
+app.use('/api/curso', cursoCont);
+app.use('/api/usuario', usuarioCont);
 
 app.get("/", function (req, res) {
     res.send("Bienvenido");

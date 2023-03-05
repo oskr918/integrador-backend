@@ -1,20 +1,20 @@
 require("rootpath")();
 const express = require('express');
 const app = express();
-
+const validateToken = require('../midelwares/validateToken.js');
 const cursoDB = require('../datasource/cursoDB');
 
 app.get('/', getAll);
 
 app.get('/:idCurso', getAlumnosByIdCurso);
 
-app.post('/', createCurso);
+app.post('/', validateToken, createCurso);
 
-app.post('/alumCurso/', resgisAlumsCurso);
+app.post('/alumCurso/', validateToken, resgisAlumsCurso);
 
-app.put('/:idCurso', updateCurso);
+app.put('/:idCurso', validateToken, updateCurso);
 
-app.delete('/:idCurso', deleteCurso);
+app.delete('/:idCurso', validateToken, deleteCurso);
 
 
 function getAll(req, res) {

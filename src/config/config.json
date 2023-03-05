@@ -1,6 +1,6 @@
 {
-    "server":{
-        "port":5000
+    "server": {
+        "port": 5000
     },
     "database": {
         "host": "127.0.0.1",
@@ -8,5 +8,6 @@
         "password": "password",
         "database": "integrador",
         "port": 3306
-        }
+    },
+    "secretKey": "miClaveSecreta"
 }
