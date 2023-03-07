@@ -30,6 +30,27 @@ cursoDB.getAll = function (funCallBack) {
    });
 }
 
+cursoDB.getByIdCurso = function (id, funCallback) {
+   connection.query("SELECT * FROM curso WHERE id=?", id, function (err, result, fields) {
+       if (err) {
+           funCallback({
+               message: "Surgio un problema, contactese con un administrador. Gracias",
+               detail: err
+           });
+           console.error(err);
+       } else {
+           if (result.length > 0) {
+               funCallback(undefined, result[0]);
+           } else {
+               funCallback({
+                   message: "No se encontro el curso"
+               });
+           }
+
+       }
+   });
+}
+
 cursoDB.getAlumnosByIdCurso = function (id, funCallBack) {
    connection.query("SELECT alumno.nombre, alumno.apellido FROM alumno_curso INNER JOIN alumno ON alumno_curso.id_alumno = alumno.id WHERE alumno_curso.id_curso = ?", id, function (err, result, fields) {
       if (err) {
@@ -125,7 +146,7 @@ cursoDB.updateCurso = function (id, curso, funCallBack) {
       if (err) {
          funCallBack({
             code: 3,
-            message: 'Surgio un problema, contactese con un administradr. Gracias !!',
+            message: 'Surgio un problema, contactese con un administrador. Gracias !!',
             detail: err
          });
          console.error(err);
@@ -139,7 +160,7 @@ cursoDB.updateCurso = function (id, curso, funCallBack) {
          } else {
             funCallBack({
                code: 1,
-               message: `Se modifico el Curso con id: ${id}`,
+               message: `El curso ha sido modificado exitosamente.`,
                detail: result
             });
          }
@@ -147,30 +168,38 @@ cursoDB.updateCurso = function (id, curso, funCallBack) {
    })
 }
 
-cursoDB.deleteCurso = function (id, funCallBack) {
-   var query = "DELETE FROM alumno_curso WHERE alumno_curso.id_curso = ?"
-   connection.query(query, id, function (err, result, fields) {
-      if (err) {
-         funCallBack({
-            message: 'Surgio un problema, contactese con un administradr. Gracias !!',
-            detail: err
-         });
-         console.error(err);
-      } else {
-         if (result.affectedRows == 0) {
-            funCallBack(undefined, {
-               message: `No se encontro el Curso. id= ${id}`,
-               detail: result
-            });
-         } else {
-
-            funCallBack(undefined, {
-               message: `Se Elimino el curso, id = ${id}. Con exito`,
-               detail: result
-            });
-         }
-      }
-   });
+cursoDB.deleteCurso = function (id, funCallback) {
+   connection.query('DELETE FROM alumno_curso WHERE id_curso = ?', id, function (err, result, fields) {
+       if (err) {
+           funCallback({
+               message: "Surgio un problema, contactese con un administrador. Gracias",
+               detail: err
+           });
+           console.error(err);
+       } else {
+           connection.query('DELETE FROM curso WHERE id = ?', id, function (err, result, fields) {
+               if (err) {
+                   funCallback({
+                       message: "Surgio un problema, contactese con un administrador. Gracias",
+                       detail: err
+                   });
+                   console.error(err);
+               } else {
+                   if (result.affectedRows == 0) {
+                       funCallback(undefined, {
+                           message: `No se encontro el curso con el id ${id}`,
+                           detail: result
+                       });
+                   } else {
+                       funCallback(undefined, {
+                           message: `Se elimino el curso con el id ${id} con éxito.`,
+                           detail: result
+                       });
+                   }
+               }
+           });
+       }
+   })
 }
 
 

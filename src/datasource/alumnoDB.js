@@ -29,8 +29,8 @@ alumnoDB.getAll = function (funCallback) {
     });
 }
 
-alumnoDB.getByIdAlumno = function (id,funCallback) {
-    connection.query("SELECT * FROM alumno WHERE id=?",id, function (err, result, fields) {
+alumnoDB.getByIdAlumno = function (id, funCallback) {
+    connection.query("SELECT * FROM alumno WHERE id=?", id, function (err, result, fields) {
         if (err) {
             funCallback({
                 message: "Surgio un problema, contactese con un administrador. Gracias",
@@ -38,14 +38,14 @@ alumnoDB.getByIdAlumno = function (id,funCallback) {
             });
             console.error(err);
         } else {
-            if(result.length>0){
+            if (result.length > 0) {
                 funCallback(undefined, result[0]);
-            }else{
+            } else {
                 funCallback({
                     message: "No se encontro el alumno/a"
                 });
             }
-            
+
         }
     });
 }
@@ -120,8 +120,7 @@ alumnoDB.update = function (id, alumno, funCallback) {
 
 
 alumnoDB.delete = function (id, funCallback) {
-    var query = 'DELETE FROM alumno WHERE id = ?'
-    connection.query(query, id, function (err, result, fields) {
+    connection.query('DELETE FROM alumno_curso WHERE id_alumno = ?', id, function (err, result, fields) {
         if (err) {
             funCallback({
                 message: "Surgio un problema, contactese con un administrador. Gracias",
@@ -129,19 +128,29 @@ alumnoDB.delete = function (id, funCallback) {
             });
             console.error(err);
         } else {
-            if (result.affectedRows == 0) {
-                funCallback(undefined, {
-                    message: `No se encontro el alumno/a con el id ${id}`,
-                    detail: result
-                });
-            } else {
-                funCallback(undefined, {
-                    message: `Se elimino el alumno con el id ${id}`,
-                    detail: result
-                });
-            }
+            connection.query('DELETE FROM alumno WHERE id = ?', id, function (err, result, fields) {
+                if (err) {
+                    funCallback({
+                        message: "Surgio un problema, contactese con un administrador. Gracias",
+                        detail: err
+                    });
+                    console.error(err);
+                } else {
+                    if (result.affectedRows == 0) {
+                        funCallback(undefined, {
+                            message: `No se encontro el alumno/a con el id ${id}`,
+                            detail: result
+                        });
+                    } else {
+                        funCallback(undefined, {
+                            message: `Se elimino el alumno con el id ${id}`,
+                            detail: result
+                        });
+                    }
+                }
+            });
         }
-    });
+    })
 }
 
 module.exports = alumnoDB;
