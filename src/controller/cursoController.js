@@ -6,6 +6,8 @@ const cursoDB = require('../datasource/cursoDB');
 
 app.get('/', getAll);
 
+app.get('/:idCurso', getByIdCurso);
+
 app.get('/:idCurso', getAlumnosByIdCurso);
 
 app.post('/', validateToken, createCurso);
@@ -25,6 +27,16 @@ function getAll(req, res) {
          res.json(result)
       }
    })
+}
+
+function getByIdCurso(req, res) {
+   cursoDB.getByIdCurso(req.params.idCurso,function (err, result) {
+       if (err) {
+           res.status(500).send(err);
+       } else {
+           res.json(result);
+       }
+   });
 }
 
 function getAlumnosByIdCurso(req, res) {
