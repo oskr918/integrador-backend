@@ -8,7 +8,7 @@ app.get('/', getAll);
 
 app.get('/:idCurso', getByIdCurso);
 
-app.get('/:idCurso', getAlumnosByIdCurso);
+app.get('/isncrip/:idCurso', getAlumnosByIdCurso);
 
 app.post('/', validateToken, createCurso);
 
