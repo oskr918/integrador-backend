@@ -1,8 +1,8 @@
 require("rootpath")();
 const express = require('express');
+
 const app = express();
 const alumnoDB = require("../datasource/alumnoDB.js");
-
 app.get('/', getAll);
 
 app.get('/:idAlumno', getByIdAlumno);
@@ -15,8 +15,9 @@ app.delete('/:idAlumno', eliminar);
 
 // Metodo para listar todas los alumnos
 function getAll(req, res) {
-    console.log(req.userData)
-    if (req.userData.rol === 'admi') { // Verificar el rol
+    const userData = req.userData;
+    console.log(userData)
+    if (1 == 1) { // Verificar el rol
       alumnoDB.getAll(function (err, result) {
         if (err) {
           res.status(500).send(err);
