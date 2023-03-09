@@ -51,6 +51,7 @@ cursoDB.getByIdCurso = function (id, funCallback) {
    });
 }
 
+
 cursoDB.getAlumnosByIdCurso = function (id, funCallBack) {
    connection.query("SELECT alumno.* FROM alumno_curso INNER JOIN alumno ON alumno_curso.id_alumno = alumno.id WHERE alumno_curso.id_curso = ?", id, function (err, result, fields) {
       if (err) {
