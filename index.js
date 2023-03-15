@@ -9,7 +9,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 
-const validateToken = require('./src/midelwares/validateToken.js');
 const loginUser = require('./src/controller/authController');
 const alumnoCont = require("./src/controller/alumnoController.js");
 const cursoCont = require("./src/controller/cursoController.js");

@@ -10,7 +10,7 @@ connection.connect((err) => {
    if (err) {
       console.log(err);
    } else {
-      console.log("DB conectada...");
+      console.log("DB conectada (curso)...");
    }
 });
 

@@ -1,8 +1,11 @@
 require("rootpath")();
 const express = require('express');
+
 const app = express();
 const validateToken = require('../midelwares/validateToken.js');
+
 const cursoDB = require('../datasource/cursoDB');
+
 
 app.get('/', getAll);
 
