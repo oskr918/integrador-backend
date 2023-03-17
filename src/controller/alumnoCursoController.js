@@ -20,7 +20,7 @@ function getAll(req, res) {
     })
  }
  
-/* Metodo para buscar a los alumnos por su id
+//Metodo para buscar a los alumnos por su id
 
 function getByIdAlumno(req, res) {
             alumnoDB.getByIdAlumno(req.params.idAlumno, function (err, result) {
@@ -69,6 +69,6 @@ function eliminar(req, res) {
                 }
             });
         }
-        */
+        
 
 module.exports = app;

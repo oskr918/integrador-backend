@@ -17,6 +17,7 @@ app.put('/:idAlumno', validateToken, update);
 app.delete('/:idAlumno', validateToken, eliminar);
 
 // Metodo para listar todas los alumnos
+
 function getAll(req, res) {
     alumnoDB.getAll(function (err, result) {
        if (err) {
@@ -28,6 +29,7 @@ function getAll(req, res) {
  }
  
 // Metodo para buscar a los alumnos por su id
+
 function getByIdAlumno(req, res) {
             alumnoDB.getByIdAlumno(req.params.idAlumno, function (err, result) {
                 if (err) {
