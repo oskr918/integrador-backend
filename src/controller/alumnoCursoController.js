@@ -3,22 +3,15 @@ const express = require('express');
 
 const app = express();
 
-const alumnoDB = require("../datasource/alumnoDB.js");
-const validateToken = require("../midelwares/validateToken.js");
+const alumnoCursoDB = require("../datasource/alumnoCursoDB.js");
 
 app.get('/', getAll);
 
-app.get('/:idAlumno', getByIdAlumno);
 
-app.post('/', validateToken, create);
+// Metodo para listar todas los alumnos inscripto
 
-app.put('/:idAlumno', validateToken, update);
-
-app.delete('/:idAlumno', validateToken, eliminar);
-
-// Metodo para listar todas los alumnos
 function getAll(req, res) {
-    alumnoDB.getAll(function (err, result) {
+    alumnoCursoDB.getAll(function (err, result) {
        if (err) {
           res.status(500).send(err);
        } else {
@@ -27,7 +20,8 @@ function getAll(req, res) {
     })
  }
  
-// Metodo para buscar a los alumnos por su id
+/* Metodo para buscar a los alumnos por su id
+
 function getByIdAlumno(req, res) {
             alumnoDB.getByIdAlumno(req.params.idAlumno, function (err, result) {
                 if (err) {
@@ -75,5 +69,6 @@ function eliminar(req, res) {
                 }
             });
         }
+        */
 
 module.exports = app;

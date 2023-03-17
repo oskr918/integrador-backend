@@ -13,6 +13,7 @@ const loginUser = require('./src/controller/authController');
 const alumnoCont = require("./src/controller/alumnoController.js");
 const cursoCont = require("./src/controller/cursoController.js");
 const usuarioCont = require("./src/controller/usuarioController.js");
+const alumnoCursoCont = require('./src/controller/alumnoCursoController.js')
 
 app.post('/api/login', loginUser);
 
@@ -20,6 +21,7 @@ app.post('/api/login', loginUser);
 app.use('/api/alumno', alumnoCont);
 app.use('/api/curso', cursoCont);
 app.use('/api/usuario', usuarioCont);
+app.use('/api/alumnoCurso', alumnoCursoCont);
 
 app.get("/", function (req, res) {
     res.send("Bienvenido");

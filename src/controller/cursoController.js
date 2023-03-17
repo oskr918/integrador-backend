@@ -85,6 +85,7 @@ function updateCurso(req, res) {
 }
 
 function deleteCurso(req, res) {
+   console.log(req.params.idCurso)
    cursoDB.deleteCurso(req.params.idCurso, function (err, result) {
      if (err) {
       res.status(500).send(err);
