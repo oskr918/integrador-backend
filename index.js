@@ -31,4 +31,4 @@ app.listen(config.server.port, function (err) {
   } else {
       console.log(`Server iniciado en puerto:${config.server.port}`);
   }
-});
+})
