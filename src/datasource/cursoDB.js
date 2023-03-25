@@ -149,8 +149,7 @@ cursoDB.updateCurso = function (id, curso, funCallBack) {
 }
 
 cursoDB.deleteCurso = function (id, funCallBack) {
-   console.log("borrar curso")
-   var query = "DELETE FROM alumno_curso WHERE alumno_curso.id_curso = ?"
+   var query = "DELETE FROM curso WHERE id = ?"
    connection.query(query, id, function (err, result, fields) {
       if (err) {
          funCallBack({
