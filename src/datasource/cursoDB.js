@@ -43,7 +43,8 @@ cursoDB.getAlumnosByIdCurso = function (id, funCallBack) {
             funCallBack(undefined, result);
          } else {
             funCallBack({
-               message: "El Curso no tiene Alumnos aun..."
+               message: "El Curso no tiene Alumnos aun...",
+               detail: "sin alumno"
             })
          }
       };

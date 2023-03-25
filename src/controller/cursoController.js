@@ -15,7 +15,7 @@ app.get('/isncrip/:idCurso', getAlumnosByIdCurso);
 
 app.post('/', validateToken, createCurso);
 
-app.post('/alumCurso/', validateToken, resgisAlumsCurso);
+app.post('/alumCurso/', resgisAlumsCurso);
 
 app.put('/:idCurso', validateToken, updateCurso);
 
