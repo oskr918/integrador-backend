@@ -30,6 +30,27 @@ cursoDB.getAll = function (funCallBack) {
    });
 }
 
+cursoDB.getByIdCurso = function (id, funCallback) {
+   connection.query("SELECT * FROM curso WHERE id=?", id, function (err, result, fields) {
+       if (err) {
+           funCallback({
+               message: "Surgio un problema, contactese con un administrador. Gracias",
+               detail: err
+           });
+           console.error(err);
+       } else {
+           if (result.length > 0) {
+               funCallback(undefined, result[0]);
+           } else {
+               funCallback({
+                   message: "No se encontro el curso seleccionado"
+               });
+           }
+
+       }
+   });
+}
+
 cursoDB.getAlumnosByIdCurso = function (id, funCallBack) {
    connection.query("SELECT alumno.* FROM alumno_curso INNER JOIN alumno ON alumno_curso.id_alumno = alumno.id WHERE alumno_curso.id_curso = ?", id, function (err, result, fields) {
       if (err) {
